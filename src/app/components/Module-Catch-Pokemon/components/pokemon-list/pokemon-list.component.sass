@@ -1,0 +1,94 @@
+$green: #4e8234
+
+.loading
+  color: orange
+
+.done
+  color: forestgreen
+
+.container
+  margin: 0 auto
+  max-width: 1280px
+  width: 90%
+  .image-banner
+    margin: auto
+    display: block
+  button
+    margin-right: 5px
+
+
+table
+  margin: auto
+  border: 3px solid #4E8234
+  background: #78C850
+
+  thead
+    th
+      background: #A7DB8D
+  tbody
+    tr
+      text-align: center
+      background: #FFF
+      .roundybottom
+        background: #A7DB8D
+        line-height: 10px
+        font-size: 85%
+
+      td
+        background: #FFF
+        border: 1px solid #D8D8D8
+        span
+          color: #000
+
+.mat-raised-button:not([class*=mat-elevation-z])
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12)
+
+
+
+.mat-primary
+  background-color: $green
+  color: #fff
+
+
+  border-image: initial
+
+.mat-raised-button
+  box-sizing: border-box
+  position: relative
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  cursor: pointer
+  outline: 0
+  border: none
+  -webkit-tap-highlight-color: transparent
+  display: inline-block
+  white-space: nowrap
+  text-decoration: none
+  vertical-align: baseline
+  text-align: center
+  margin: 0
+  min-width: 64px
+  line-height: 36px
+  padding: 0 16px
+  border-radius: 4px
+  overflow: visible
+  transform: translate3d(0,0,0)
+  transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)
+button
+  font-family: Roboto,"Helvetica Neue",sans-serif
+  font-size: 14px
+  font-weight: 500
+
+
+.table-responsive
+  display: block
+  width: 100%
+  overflow-x: auto
+  -webkit-overflow-scrolling: touch
+
+@media only screen and (max-width: 992px)
+  .responsive
+    width: 100%
+    height: auto

@@ -1,0 +1,224 @@
+<div class="container">
+  <img class="image-banner responsive" width="500" height="200" src="../../../../../assets/pokemon.png" alt="">
+</div>
+<br>
+<div class="container" align="center">
+  <button class="mat-raised-button mat-primary" (click)="showCatched(false)">
+    Show Pokemon List
+  </button>
+  <button *ngIf="pokemons_catched.length > 0" class="mat-raised-button mat-primary" (click)="showCatched(true)">
+    Show Pokemon Catched
+  </button>
+</div>
+<br>
+
+<div class="table-responsive" *ngIf="chatched_list == false">
+  <table *ngIf="!loading; else loader">
+    <thead>
+    <tr>
+      <th><span>Image</span>
+      </th>
+      <th> Pokémon
+      </th>
+      <th colspan="2"><span>Types</span>
+      </th>
+      <th> First Ability</th>
+      <th> Second Ability</th>
+      <th> Hidden Ability</th>
+      <th> Base Experience</th>
+      <th> Weight</th>
+      <th> Height</th>
+      <th> Catch</th>
+    </tr>
+    </thead>
+    <tbody *ngIf="pokemons.length > 0 && !loading">
+    <tr *ngFor="let pokemon of pokemons;let position = index">
+      <td><img [src]="pokemon.features.forms[2]" width="40" height="40">
+      </td>
+      <td>
+        <span>{{ pokemon.name }}</span>
+      </td>
+      <ng-container *ngIf="pokemon.features.types.length > 1; else spinner">
+        <td *ngFor="let types of pokemon.features.types">
+          <span>{{types}}</span>
+        </td>
+      </ng-container>
+      <ng-template #spinner>
+        <td colspan="2">
+          <span>{{pokemon.features.types}}</span>
+        </td>
+      </ng-template>
+      <td>
+        <span *ngIf="pokemon.features.abilities.length > 1">
+          {{pokemon.features.abilities[1]}}
+        </span>
+        <span *ngIf="pokemon.features.abilities.length <= 1">
+          None
+        </span>
+      </td>
+      <td>
+        <span *ngIf="pokemon.features.abilities.length > 2">
+          {{pokemon.features.abilities[2]}}
+        </span>
+        <span *ngIf="pokemon.features.abilities.length <= 2">
+          None
+        </span>
+      </td>
+      <td>
+        <span *ngIf="pokemon.features.abilities.length > 0">
+          {{pokemon.features.abilities[0]}}
+        </span>
+        <span *ngIf="pokemon.features.abilities.length <= 0">
+          None
+        </span>
+      </td>
+      <td>
+        <span>
+          {{pokemon.features.base_experience}} +XP
+        </span>
+      </td>
+      <td>
+        <span>
+          {{pokemon.features.weight}}
+        </span>
+      </td>
+      <td>
+        <span>
+          {{pokemon.features.height}}
+        </span>
+      </td>
+      <td>
+        <button *ngIf="pokemonExist(pokemon.id)" class="mat-raised-button mat-primary"
+                (click)="catchPokemon(position)"
+                [disabled]="pokemonExist(pokemon.id)">
+          <img src="../../../../../assets/pokeball.png" alt=""> catched
+        </button>
+        <button *ngIf="!pokemonExist(pokemon.id)" class="mat-raised-button mat-primary"
+                (click)="catchPokemon(position)">
+          <img src="../../../../../assets/open-pokeball.png" alt=""> catch
+        </button>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="roundybottom" colspan="7">
+          <b>please, if the pokemon was not caught, keep trying, sure you are not yet ready for his power</b>
+      </td>
+      <td colspan="2">
+        <button class="mat-raised-button mat-primary" (click)="goToPreviousPage()" [disabled]="!prev_url">
+          Prev
+        </button>
+      </td>
+      <td colspan="2">
+        <button class="mat-raised-button mat-primary" (click)="goToNextPage()" [disabled]="!next_url">
+          Next
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-responsive" *ngIf="chatched_list == true">
+  <table *ngIf="pokemons_catched.length > 0">
+    <thead>
+    <tr>
+      <th><span>Image</span>
+      </th>
+      <th> Pokémon
+      </th>
+      <th colspan="2"><span>Types</span>
+      </th>
+      <th> First Ability</th>
+      <th> Second Ability</th>
+      <th> Hidden Ability</th>
+      <th> Base Experience</th>
+      <th> Weight</th>
+      <th> Height</th>
+      <th> Catch</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let pokemon of pokemons_catched;let position = index">
+      <td><img [src]="pokemon.features.forms[2]" width="40" height="40">
+      </td>
+      <td>
+        <span>{{ pokemon.name }}</span>
+      </td>
+      <ng-container *ngIf="pokemon.features.types.length > 1; else spinner">
+        <td *ngFor="let types of pokemon.features.types">
+          <span>{{types}}</span>
+        </td>
+      </ng-container>
+      <ng-template #spinner>
+        <td colspan="2">
+          <span>{{pokemon.features.types}}</span>
+        </td>
+      </ng-template>
+      <td>
+        <span *ngIf="pokemon.features.abilities.length > 1">
+          {{pokemon.features.abilities[1]}}
+        </span>
+        <span *ngIf="pokemon.features.abilities.length <= 1">
+          None
+        </span>
+      </td>
+      <td>
+        <span *ngIf="pokemon.features.abilities.length > 2">
+          {{pokemon.features.abilities[2]}}
+        </span>
+        <span *ngIf="pokemon.features.abilities.length <= 2">
+          None
+        </span>
+      </td>
+      <td>
+        <span *ngIf="pokemon.features.abilities.length > 0">
+          {{pokemon.features.abilities[0]}}
+        </span>
+        <span *ngIf="pokemon.features.abilities.length <= 0">
+          None
+        </span>
+      </td>
+      <td>
+        <span>
+          {{pokemon.features.base_experience}} +XP
+        </span>
+      </td>
+      <td>
+        <span>
+          {{pokemon.features.weight}}
+        </span>
+      </td>
+      <td>
+        <span>
+          {{pokemon.features.height}}
+        </span>
+      </td>
+      <td>
+        <button *ngIf="pokemonExist(pokemon.id)" class="mat-raised-button mat-primary"
+                (click)="catchPokemon(position)"
+                [disabled]="pokemonExist(pokemon.id)">
+          <img src="../../../../../assets/pokeball.png" alt=""> catched
+        </button>
+        <button *ngIf="!pokemonExist(pokemon.id)" class="mat-raised-button mat-primary"
+                (click)="catchPokemon(position)">
+          <img src="../../../../../assets/open-pokeball.png" alt=""> catch
+        </button>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="roundybottom" colspan="11">
+        <b>congratitulation, you can be a big pokemon trainer</b>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loader>
+  <div align="center">
+    <img class="image-banner" width="250" height="200"
+         src="https://66.media.tumblr.com/fe61dc2b7ef08a538b906eced7fa5cb5/tumblr_mitnv9F37V1s5iz0ho1_500.gif" alt="">
+  </div>
+</ng-template>
